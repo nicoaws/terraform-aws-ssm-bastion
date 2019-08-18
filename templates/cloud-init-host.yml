@@ -1,0 +1,7 @@
+#cloud-config
+
+# add each entry to ~/.ssh/authorized_keys for the configured user or the
+# first user defined in the user definition directive.
+
+ssh_authorized_keys:
+  - ${bastion_public_key}
