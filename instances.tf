@@ -1,7 +1,8 @@
 resource "aws_instance" "bastion" {
-  ami = data.aws_ami.amazon_linux_2.id
+  ami = var.bastion_ami_id
   instance_type = var.instance_type
   subnet_id = aws_subnet.private_subnets.0.id
+  key_name = aws_key_pair.ssm-bastion-keypair.id
   vpc_security_group_ids = [ aws_security_group.bastion_sg.id ]
   associate_public_ip_address = false
   source_dest_check = false
@@ -15,7 +16,7 @@ resource "aws_instance" "bastion" {
 resource "aws_instance" "host" {
   ami = data.aws_ami.amazon_linux_2.id
   instance_type = var.instance_type
-  subnet_id = aws_subnet.private_subnets.0.id
+  subnet_id = aws_subnet.private_subnets.1.id
   vpc_security_group_ids = [ aws_security_group.host_sg.id ]
   user_data = data.template_cloudinit_config.cloud_init_config_host.rendered
   associate_public_ip_address = false

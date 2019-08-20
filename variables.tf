@@ -37,3 +37,8 @@ variable "private_key_path" {
   type = "string"
   default = "~/.ssh/id_rsa"
 }
+
+variable "bastion_ami_id" {
+  type = "string"
+  default = "ami-05bc70c954e6fbaa3"
+}
